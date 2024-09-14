@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>موقع الذكاء الاصطناعي - أسئلة البرمجة والتكنولوجيا</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 15px;
+        }
+        section {
+            padding: 20px;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        a {
+            color: #1a73e8;
+            text-decoration: none;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .question-box {
+            margin: 20px 0;
+        }
+        .question-box input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .question-box input[type="submit"] {
+            background-color: #333;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .question-box input[type="submit"]:hover {
+            background-color: #555;
+        }
+        .response {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>موقع الذكاء الاصطناعي لإجابات البرمجة والتكنولوجيا</h1>
+    </header>
+
+    <section class="container">
+        <h2>اطرح سؤالك في البرمجة أو التكنولوجيا</h2>
+        <div class="question-box">
+            <form id="question-form">
+                <input type="text" id="question-input" placeholder="اكتب سؤالك هنا..." required>
+                <input type="submit" value="إرسال">
+            </form>
+        </div>
+
+        <div class="response" id="response-box">
+            <!-- سيتم عرض إجابات الذكاء الاصطناعي هنا -->
+        </div>
+
+        <h2>الروابط والمصادر التعليمية</h2>
+        <h3>لغات البرمجة</h3>
+        <ul>
+            <li><a href="https://docs.python.org/3/" target="_blank">وثائق Python الرسمية</a></li>
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank">وثائق JavaScript على MDN</a></li>
+            <li><a href="https://docs.oracle.com/en/java/" target="_blank">وثائق Java الرسمية</a></li>
+            <li><a href="https://en.cppreference.com/w/" target="_blank">مرجع C++</a></li>
+        </ul>
+
+        <h3>أطر العمل (Frameworks)</h3>
+        <ul>
+            <li><a href="https://reactjs.org/docs/getting-started.html" target="_blank">وثائق React</a></li>
+            <li><a href="https://docs.djangoproject.com/en/stable/" target="_blank">وثائق Django</a></li>
+            <li><a href="https://flask.palletsprojects.com/en/2.0.x/" target="_blank">وثائق Flask</a></li>
+        </ul>
+
+        <h3>قواعد البيانات</h3>
+        <ul>
+            <li><a href="https://dev.mysql.com/doc/" target="_blank">وثائق MySQL</a></li>
+            <li><a href="https://www.mongodb.com/docs/" target="_blank">وثائق MongoDB</a></li>
+        </ul>
+
+        <h3>أدوات DevOps</h3>
+        <ul>
+            <li><a href="https://docs.docker.com/" target="_blank">وثائق Docker</a></li>
+            <li><a href="https://kubernetes.io/docs/home/" target="_blank">وثائق Kubernetes</a></li>
+        </ul>
+
+        <h3>أنظمة التحكم في الإصدارات</h3>
+        <ul>
+            <li><a href="https://git-scm.com/doc" target="_blank">مرجع Git</a></li>
+            <li><a href="https://docs.github.com/en" target="_blank">وثائق GitHub</a></li>
+        </ul>
+    </section>
+
+    <script>
+        document.getElementById('question-form').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            const question = document.getElementById('question-input').value;
+
+            const responseBox = document.getElementById('response-box');
+            responseBox.innerHTML = 'جاري معالجة السؤال...';
+
+            try {
+                const response = await fetch('/ask', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ question })
+                });
+                const data = await response.json();
+                responseBox.innerHTML = '<h3>الإجابة:</h3><p>' + data.answer + '</p>';
+            } catch (error) {
+                responseBox.innerHTML = '<p>حدث خطأ أثناء معالجة السؤال.</p>';
+            }
+        });
+    </script>
+</body>
+</html>
